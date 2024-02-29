@@ -1,3 +1,4 @@
+require('dotenv').config()
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
@@ -15,8 +16,10 @@ const app = express();
 // Set up mongoose connection
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
-const dev_db_url = "mongodb+srv://laurentbrugiere:6ey3VsDIiBNkcZHm@cluster0.38bddhi.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
-const mongoDB = process.env.MONGODB_URI || dev_db_url;
+let mongoDB;
+process.env.NODE_ENV === 'production'
+  ? (mongoDB = process.env.MONGODB_URI)
+  : (mongoDB = process.env.DEV_DB_URL)
 
 main().catch((err) => console.log(err));
 async function main() {
