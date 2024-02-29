@@ -7,13 +7,15 @@ const logger = require('morgan');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const catalogRouter = require("./routes/catalog");
+const compression = require("compression");
 
 const app = express();
 
 // Set up mongoose connection
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
-const mongoDB = "mongodb+srv://laurentbrugiere:6ey3VsDIiBNkcZHm@cluster0.38bddhi.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const dev_db_url = "mongodb+srv://laurentbrugiere:6ey3VsDIiBNkcZHm@cluster0.38bddhi.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const mongoDB = process.env.MONGODB_URI || dev_db_url;
 
 main().catch((err) => console.log(err));
 async function main() {
@@ -28,6 +30,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(compression()); // Compress all routes
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
