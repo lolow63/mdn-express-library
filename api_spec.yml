@@ -8,13 +8,13 @@ info:
   description: 'Get the current books available at the library, search by title, author and genre. Check for book status and number of copies. Manage the current inventory with CRUD operations on the database. Manage status and return dates.'
   contact:
     name: Support
-    url: 'http://localhost:3000/collection'
+    url: 'http://localhost:3000/catalog'
     email: support@library.com
   license:
     name: Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
     url: 'https://creativecommons.org/licenses/by-sa/4.0/'
 servers:
-  - url: 'http://localhost:3000/collection'
+  - url: 'http://localhost:3000/catalog'
     description: dev
 paths:
   /home:
